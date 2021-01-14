@@ -1,0 +1,36 @@
+name: Update
+
+on:
+  schedule:
+    - cron:  '0 0 * * 0'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download server lists and update list files
+        run: |
+          mkdir -p generic
+          mkdir -p foxyproxy
+          declare -a countrycode=("au" "ca" "fr" "de" "hk" "in" "jp" "nl" "sg" "se" "ch" "tw" "uk" "us")
+          declare -a countryid=("13" "38" "74" "81" "97" "100" "108" "153" "195" "208" "209" "211" "227" "228")
+          for (( i=0; i<${#countrycode[@]}; i++ ));
+          do
+            curl --silent "https://api.nordvpn.com/v1/servers/recommendations?filters\[country_id\]=${countryid[$i]}&filters\[servers_technologies\]\[identifier\]=proxy_ssl&limit=100" | jq --raw-output '.[].hostname' > generic/${countrycode[$i]}.txt
+            cat generic/${countrycode[$i]}.txt | while read line; do echo "ssl://username:password@${line}:89" >> foxyproxy/${countrycode[$i]}.txt; done
+          done
+
+      - name: push
+        uses: actions-x/commit@v2
+        with:
+          email: me@example.com
+          name: GitHub Actions
+          branch: main
+          files: '*.txt'
+          repository: https://github.com/jim-liu/nordvpn-servers
+          token: ${{ secrets.GITHUB_TOKEN }}
