@@ -25,12 +25,9 @@ jobs:
             cat generic/${countrycode[$i]}.txt | while read line; do echo "ssl://username:password@${line}:89" >> foxyproxy/${countrycode[$i]}.txt; done
           done
 
-      - name: push
-        uses: actions-x/commit@v2
+      - name: Commit and push changes
+        uses: actions-js/push@master
         with:
-          email: me@example.com
-          name: GitHub Actions
-          branch: main
-          files: '*.txt'
-          repository: https://github.com/jim-liu/nordvpn-servers
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          message: "Automatically updated IP lists using GitHub Actions"
