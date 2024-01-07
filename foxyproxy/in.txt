@@ -1475,3 +1475,13 @@ ssl://username:password@in123.nordvpn.com:89
 ssl://username:password@in129.nordvpn.com:89
 ssl://username:password@in136.nordvpn.com:89
 ssl://username:password@in128.nordvpn.com:89
+ssl://username:password@in143.nordvpn.com:89
+ssl://username:password@in144.nordvpn.com:89
+ssl://username:password@in147.nordvpn.com:89
+ssl://username:password@in140.nordvpn.com:89
+ssl://username:password@in148.nordvpn.com:89
+ssl://username:password@in142.nordvpn.com:89
+ssl://username:password@in145.nordvpn.com:89
+ssl://username:password@in146.nordvpn.com:89
+ssl://username:password@in141.nordvpn.com:89
+ssl://username:password@in149.nordvpn.com:89
